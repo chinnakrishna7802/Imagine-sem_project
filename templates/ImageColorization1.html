@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee+Shade&family=Cairo:wght@600&family=Luxurious+Roman&family=Mochiy+Pop+P+One&family=Pacifico&family=Roboto+Slab:wght@200&family=Teko:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/Image Colorization.css')}}" type='text/css'>
+    <title>Image Colorization</title>
+</head>
+
+<body>
+    <section id="background">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" href="#">IMAGINE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" ></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills nav-fill red">
+                        <li class="nav-item">
+                            <a class="nav-link  text-light" aria-current="page" href="{{url_for('HomePage')}}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{{url_for('ImageEnhancement')}}">Image UpScaler </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link  text-light" href="{{url_for('ImageColorization')}}">Image Colorization </a>
+                        </li>
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    <!-- <form class="d-flex" role="button"> -->
+                    <!-- <button class="btn btn-outline-warning text-light pr-5" type="submit">Create Account</button>
+                        <button class="btn btn-outline-warning text-light ml-5" type="submit">Search</button> -->
+                    <!-- <button class="btn btn-outline-primary text-light" href="#" style="margin-right: 30px;">Create Account</button> -->
+                    <!-- <button class="btn btn-outline-success text-light" href="#">Login</button> -->
+                    <!-- </form> -->
+                </div>
+            </div>
+        </nav>
+        <section>
+            <div class="img-comp-container" style="margin-top: 3%;margin-left: 3%;">
+                <div class="img-comp-img">
+                    <img src="{{url_for('static',filename='images/hd_image.jpg')}}" width="500px" height="300px">
+                    <div class="bal-afterPosition afterLabel">
+                        After
+                    </div>
+                </div>
+                <div class="img-comp-img img-comp-overlay" >
+                    <img src="{{url_for('static',filename='images/black_and_white_image.jpg')}}" width="500px" height="300px">
+                    <div class="bal-beforePosition beforeLabel">
+                        Before
+                    </div>
+                </div>
+                <div >
+                    <p style="padding-left: 35rem; padding-right: 2rem; color: white;">Image color enhancement, by improving the overall visual quality of the input image. This will be achieved using techniques such as contrast enhancement, sharpness enhancement, and noise reduction. The model will learn to perform these operations by minimizing a loss function, which measures the difference between the output image and the ground truth image</p>
+                </div>
+            </div>
+        </section>
+    
+        <!-- container for uploading the image -->
+        <div class="container border border-2 border-info my-2 mx-auto" style="width: 60rem;">
+            <!-- <div class="row"> -->
+            <div class="px-2 py-2"
+                style="width: 400px; font-size: 1.3rem;font-family: 'Fruktur', cursive; display: inline-block; color: white;">
+                <p>AI Image Colorizor</p>
+                <p>Fills color to the black_and_white_image</p>
+            </div>
+            <div style="display: inline-block; ">
+                <img src="{{url_for('static',filename='images/input_image_logo.png')}}" alt="" style="width: 150px; height: 150px;">
+            </div>
+            <div class="input-group mb-3" style="width: 100px;">
+                <div class="custom-file ">
+                    <form action="{{ url_for('predict_image') }}" method="post" class="input_image" enctype="multipart/form-data">
+                    <!-- <form action="#" class="input_image"> -->
+                        <input type="file" name="file" class="custom-file-input " id="file" style="color: white;font-family: 'Fruktur', cursive;">
+                    <!-- </form> -->
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    
+        <!-- Preview container -->
+        <section>
+            <div class="container d-flex justify-content-evenly align-items-center flex-wrap" id="preview_image_container">
+                <!-- <form action="#" method="post" class="input_image"> -->
+                <div class="card" style="width: 30rem; display:none" id="preview_container">
+                    <img class="card-img-top" src="data:image/png;base64,{{ image1 }}" alt="..." id="preview">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Before processing</h5>
+                    </div>
+                </div>
+                <!-- <img style="display: none;" id="arrow_image" src="right_arrow_img.png" /> -->
+                <!-- <form action="#" method="post" class="input_image"> -->
+                    <button id="process" style="display: none;" class="btn btn-primary" type="submit">Process</button>
+                </form>
+                <!-- <div class="card" style="width: 30rem; display:none" id="output_container">
+                    <img class="card-img-top" alt="..." id="output_image">
+                    <img class="card-img-top"  src="data:image/png;base64,{{ output_data }}">
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">After processing</h5>
+                    </div>
+                </div> -->
+            </div>
+            <!-- <div class="container d-flex justify-content-center align-items-center flex-wrap">
+                <button id="refresh" style="display: none;" class="btn btn-danger">Refresh</button>
+            </div> -->
+        </section>
+        
+    {% if output_data %}
+    
+    <section>
+        <div class="container d-flex justify-content-evenly align-items-center flex-wrap" id="preview_image_container">
+        <div class="card" style="width: 30rem; display:none" id="output_container">
+            <!-- <img class="card-img-top" alt="..." id="output_image"> -->
+            <img class="card-img-top"  src="data:image/png;base64,{{ output_data }}">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center;">After processing</h5>
+            </div>
+        </div>
+        </div>
+        <div class="img-comp-container" style="margin-top: 3%;margin-left: 3%;">
+            <div class="img-comp-img">
+                <img src="data:image/png;base64,{{ output_data }}" width="500px" height="300px">
+                
+                <div class="bal-afterPosition afterLabel">
+                    After
+                </div>
+            </div>
+            <div class="img-comp-img img-comp-overlay" >
+                <img src="data:image/jpeg;base64,{{ image1 }}" width="500px" height="300px">
+                <div class="bal-beforePosition beforeLabel">
+                    Before
+                </div>
+            </div>
+            <div >
+                <p style="padding-left: 35rem; padding-right: 2rem; color: white;">Image color enhancement, by improving the overall visual quality of the input image. This will be achieved using techniques such as contrast enhancement, sharpness enhancement, and noise reduction. The model will learn to perform these operations by minimizing a loss function, which measures the difference between the output image and the ground truth image.</p>
+            </div>
+        </div>
+    </section>
+
+    {% endif %}
+        <footer id="footer" style="margin-top: 5rem;">
+            <div class="container pt-4">
+                <center><h1>Imagine</h1>
+                <p>
+                <ul style="list-style: none;">
+                    <li>Sahil Tailor</li>
+                    <li>Hitesh Bhosale</li>
+                    <li>Chinnakrishna Achary</li>
+                    <li>Jinay Vora</li>
+                </ul> 
+                </p>
+            </center>
+            </div>
+        </footer>
+    </section>
+
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='scripts/Image Colorization.js')}}" ></script>
+    <script src="{{url_for('static',filename='scripts/HomePage.js')}}"></script>
+    <script>
+         initComparisons();
+     </script>
+
+</html>

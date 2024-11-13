@@ -1,0 +1,114 @@
+* {box-sizing: border-box;}
+
+.img-comp-container {
+  position: relative;
+  height: 400px; /*should be the same height as the images*/
+}
+
+.img-comp-img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.img-comp-img img {
+  display: block;
+  vertical-align: middle;
+}
+
+.img-comp-slider {
+  position: absolute;
+  z-index: 9;
+  cursor: ew-resize;
+  /*set the appearance of the slider:*/
+  width: 40px;
+  height: 40px;
+  background-color: #2196F3;
+  opacity: 0.7;
+  border-radius: 50%;
+}
+.bal-beforePosition {
+    background: #121212;
+    color: #ffffff;
+    left: 0;
+    pointer-events: none;
+    border-radius: 0.2rem;
+    padding: 2px 10px;
+}
+.bal-afterPosition {
+    background: #121212;
+    color: #fff;
+    right: 0;
+    pointer-events: none;
+    border-radius: 0.2rem;
+    padding: 2px 10px;
+}
+.beforeLabel {
+    position: absolute;
+    bottom: 0;
+    margin: 1rem;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.afterLabel {
+    position: absolute;
+    bottom: 0;
+    margin: 1rem;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.my-2 {
+  margin-top: 4rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.px-2 {
+  padding-left: 1rem !important;
+  padding-right: 3rem !important;
+}
+
+.py-2 {
+  padding-top: 3rem !important;
+  padding-bottom: 6rem !important;
+}
+
+.input-group {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+@media screen and (max-width:1000px) {
+  #preview_image_container{
+    flex-direction: column;
+  }
+}
+#footer{
+  margin-bottom: 0px;
+  bottom: 0px;
+  background-color: black;
+  color: white;
+}
+
+.red .active a{
+  background-color: red;
+}
+
+#background{
+  background: url(../images/bgimage.jpg) no-repeat center center/cover;
+}
